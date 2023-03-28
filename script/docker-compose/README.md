@@ -1,13 +1,12 @@
-##  Docker-Compose Deploy
+##### Install Docker & Docker-compose
+1. $ docker -v
+   Docker version 20.10.17, build 100c701
 
-- Use Mysql + IoTDB as Hertzbeat dependent storage -> [HertzBeat+Mysql+IoTDB Solution](hertzbeat-mysql-iotdb)
-- Use Mysql + Tdengine as Hertzbeat dependent storage -> [HertzBeat+Mysql+Tdengine Solution](hertzbeat-mysql-tdengine)
+##### docker compose deploys hertzbeat and its dependent services
+2. $docker-compose -version
+   docker-compose version 1.29.2, build 5becea4c
 
 
-##  Docker-Compose 部署方案   
+##### Start exploring HertzBeat
 
-- 使用 Mysql + IoTDB 作为 Hertzbeat 依赖存储服务 -> [HertzBeat+Mysql+IoTDB 方案](hertzbeat-mysql-iotdb)
-- 使用 Mysql + Tdengine 作为 Hertzbeat 依赖存储服务 -> [HertzBeat+Mysql+Tdengine 方案](hertzbeat-mysql-tdengine)
-
-##Docker Engine version 20.10.17
-##Docker-Compose version 1.29.2
+3. $docker compose up -d

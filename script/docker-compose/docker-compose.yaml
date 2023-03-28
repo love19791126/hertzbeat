@@ -1,0 +1,51 @@
+version: "3.8"
+
+networks:
+  heartzbeat:
+    driver: bridge
+
+services:
+  iotdb:
+    image: apache/iotdb:1.0.1-standalone
+    hostname: iotdb
+    container_name: iotdb
+    restart: always
+    ports:
+      - "6667:6667"
+    environment:
+      TZ: Asia/Shanghai
+    environment:
+      - cn_internal_address=iotdb
+      - cn_internal_port=10710
+      - cn_consensus_port=10720
+      - cn_target_config_node_list=iotdb:10710
+      - dn_rpc_address=iotdb
+      - dn_rpc_port=6667
+      - dn_mpp_data_exchange_port=10740
+      - dn_schema_region_consensus_port=10750
+      - dn_data_region_consensus_port=10760
+      - dn_target_config_node_list=iotdb:10710
+    volumes:
+      - ./dbdata/iotdbdata:/iotdb/data
+      - ./dbdata/iotdblogs:/iotdb/logs
+    networks:
+      - heartzbeat
+  hertzbeat:
+    image: tancloud/hertzbeat:v1.3.0
+    container_name: hertzbeat
+    hostname: hertzbeat
+    restart: always
+    environment:
+      TZ: Asia/Shanghai
+      LANG: zh_CN.UTF-8
+    depends_on:
+      - iotdb
+    volumes:
+      - ./conf/application.yml:/opt/hertzbeat/config/application.yml
+      - ./conf/sureness.yml:/opt/hertzbeat/config/sureness.yml
+    ports:
+      - "10057:10057"
+    networks:
+      - heartzbeat
+
+
